@@ -12,6 +12,7 @@ func RandomAnswer() -> String {
 struct ContentView: View {
     @State var GoodThingPrompt: String = RandomPrompt()
     @State var GoodThingAnswer: String = RandomAnswer()
+    @State var GoodThingDisplay: String = ""
     @State var GoodThing2: String = ""
     @State var GoodThing3: String = ""
     @State var GoodThing4: String = ""
