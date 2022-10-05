@@ -1,12 +1,17 @@
 import SwiftUI
 
 func RandomPrompt() -> String{
-    let things = ["What is the apparatus needed to titrate hydrochloric acid and sodium hydroxide?"]
+    let things = ["Definition of precision"]
     return String(things.randomElement()!)
+}
+func RandomAnswer() -> String {
+    let answers = ["Precision is determined by the range of values/measurements, or the smallest division on the measuring instrument"]
+    return String(answers.randomElement()!)
 }
 
 struct ContentView: View {
     @State var GoodThingPrompt: String = RandomPrompt()
+    @State var GoodThingAnswer: String = RandomAnswer()
     @State var GoodThing2: String = ""
     @State var GoodThing3: String = ""
     @State var GoodThing4: String = ""
@@ -16,21 +21,18 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             Image("scientific research")
-            Text(GoodThingPrompt)
+            Text(GoodThingDisplay)
                 .font(.title)
                 .fixedSize(horizontal: false, vertical: true)
-            TextField("Hello", text: $GoodThing2)
-                .textFieldStyle(.roundedBorder)
-            TextField("Hello", text: $GoodThing3)
-                .textFieldStyle(.roundedBorder)
-            TextField("Hello", text: $GoodThing4)
-                .textFieldStyle(.roundedBorder)
-            TextField("Hello", text: $GoodThing5)
-                .textFieldStyle(.roundedBorder)
-            TextField("Hello", text: $GoodThing6)
-                .textFieldStyle(.roundedBorder)
-            TextField("Hello", text: $GoodThing7)
-                .textFieldStyle(.roundedBorder)
+            Button ("Question") {
+                GoodThingDisplay = GoodThingPrompt 
+            }
+            Button ("Answer"){
+                GoodThingDisplay = GoodThingAnswer 
+            }
         }
     }
 }
+
+
+
