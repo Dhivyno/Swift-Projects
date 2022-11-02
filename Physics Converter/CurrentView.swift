@@ -2,13 +2,15 @@ import SwiftUI
 
 import SwiftUI
 
-struct CurrentView: View {
-    @State var charge = 0.00
-    @State var time = 0.00
+
+
+struct ResistanceView: View {
+    let backgroundGradient = LinearGradient(
+        colors: [Color.red, Color.blue],
+        startPoint: .top, endPoint: .bottom)
     @State var resistance = 0.00
+    @State var resistance2 = 0.00
     @State var current = 0.00
-    @State var current2 = 0.00
-    @State var current3 = 0.00
     @State var chargeDensity = 0.00
     @State var crossSectionalArea = 0.00
     @State var driftVelocity = 0.00
@@ -16,62 +18,93 @@ struct CurrentView: View {
     @State var relativeChargeOfChargeCarriers = 0.00
     @State var resistivity = 0.00
     @State var lengthOfMaterial = 0.00
+    @State var cm = 0
+    @State var m = 0
     var body: some View {
-        ScrollView {
-            Text("Current unknown (I = nAvq)")
-                .font(.title)
-            TextField("Charge density of material", value: $chargeDensity, format: .number)
-                .textFieldStyle(.roundedBorder)
-            TextField("Drift velocity of charge carriers", value: $driftVelocity, format: .number)
-                .textFieldStyle(.roundedBorder)
-            TextField("Cross-sectional area", value: $crossSectionalArea, format: .number)
-                .textFieldStyle(.roundedBorder)
-            TextField("Relative charge of charge carriers", value: $relativeChargeOfChargeCarriers, format: .number)
-                .textFieldStyle(.roundedBorder)
-            let current = chargeDensity*crossSectionalArea*driftVelocity*relativeChargeOfChargeCarriers
-            HStack{
-                Text("Current is")
-                Text(String(current))
-                    .bold()
-                Text("A")
-                    .bold()
-            }
-            VStack{
-                Text("Current unknown (I = V/R)")
-                    .font(.title)
-                    .padding()
-                    .padding()
-                TextField("Voltage across component", value: $voltage, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                TextField("Resistance of component", value: $resistance, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                let current2 = voltage/resistance
-                HStack {
-                    Text("Current is")
-                    Text(String(current2))
-                        .bold()
-                    Text("A")
-                        .bold()
-                }
-            }
+        ScrollView{
+            ZStack{
+            backgroundGradient
+                VStack{
             VStack {
-                Text("Current unknown (I = Q/t)")
+                Text("Physics Helper :)")
+                        .font(.title)
+                Text(" ")
+                }
+                Text("Resistance unknown (R = pL/A)")
+                    .font(.title2)
+                HStack {
+                    Text("Resistivity:")
+                        .padding()
+                    TextField("Resistivity", value: $resistivity, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.all, 5)
+                        .background(.gray)
+                }
+                HStack {
+                    Text("Length:")
+                        .padding()
+                    TextField("Length", value: $lengthOfMaterial, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.all, 5)
+                        .background(.black)
+                }
+                HStack {
+                    Text("Cross-sectional:")
+                        .padding()
+                    TextField("Cross-sectional area", value: $crossSectionalArea, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.all, 5)
+                        .background(.red)
+                }
+                
+                let resistance = resistivity*lengthOfMaterial/crossSectionalArea
+                HStack {
+                    Text("Resistance is")
+                        .font(.title2)
+                    Text(String(resistance))
+                        .bold()
+                        .font(.title2)
+                    Text("Ω")
+                        .bold()
+                        .font(.title2)
+                }
+                
+                Text("Resistance unknown (R = V/I)")
                     .font(.title)
                     .padding()
                     .padding()
-                TextField("Charge travelled through a point in the circuit", value: $charge, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                TextField("Time taken", value: $time, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                let current3 = charge/time
-                HStack{
-                    Text("Current is")
-                    Text(String(current3))
-                        .bold()
-                    Text("A")
-                        .bold()
+                HStack {
+                    Text("Voltage:")
+                        .padding()
+                    TextField("Voltage across component", value: $voltage, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.all, 5)
+                        .background(.blue)
                 }
+                HStack {
+                    Text("Current:")
+                        .padding()
+                    TextField("Current across component", value: $current, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(.all, 5)
+                        .background(.red)
+                }
+            
+        
+                let resistance2 = voltage/current
+                HStack {
+                    Text("Resistance is")
+                        .font(.title2)
+                    Text(String(resistance2))
+                        .bold()
+                        .font(.title2)
+                    Text("Ω")
+                        .bold()
+                        .font(.title2)
+                }
+            }
             }
         }
     }  
 }
+
